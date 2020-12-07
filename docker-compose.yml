@@ -1,0 +1,25 @@
+---
+version: "3"
+services:
+   portainer:
+      image: ${portainer_image}:${portainer_tag}
+      container_name: portainer
+      ports:
+         - 9000:9000
+      volumes:
+         - ${portainer_volume_data}:/data
+         - /var/run/docker.sock:/var/run/docker.sock
+      restart:
+         always
+
+   traefik:
+   plex:
+   medusa:
+   transmission:
+   samba:
+   home-assistant:
+ 
+networks:
+   default:
+   web:
+      external: true
