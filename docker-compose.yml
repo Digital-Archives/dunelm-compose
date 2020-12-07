@@ -13,6 +13,27 @@ services:
          always
 
    traefik:
+      image: ${traefik_image}:${traefik_tag}
+      command: --configFile=/traefik.toml
+      environment:
+         - NAMECHEAP_API_USER=${traefik_namecheap_user}
+         - NAMECHEAP_API_KEY=${traefik_namecheap_key}
+      networks:
+         - web
+      ports:
+         - "80:80"
+         - "443:443"
+         - "8080:8080"
+      volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
+         - ${traefik_volume_config}:/traefik.toml
+         - ${traefik_volume_certs}:/acme.json
+      labels:
+         - "traefik.enable=true"
+         - "traefik.frontend.rule=Host:${traefik_domain}"
+         - "traefik.port=8080"
+      restart: unless-stopped
+
    plex:
    medusa:
    transmission:
