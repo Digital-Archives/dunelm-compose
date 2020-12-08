@@ -9,8 +9,7 @@ services:
       volumes:
          - ${portainer_volume_data}:/data
          - /var/run/docker.sock:/var/run/docker.sock
-      restart:
-         always
+      restart: always
 
    traefik:
       image: ${traefik_image}:${traefik_tag}
@@ -34,12 +33,6 @@ services:
          - "traefik.port=8080"
       restart: unless-stopped
 
-   plex:
-   medusa:
-   transmission:
-   samba:
-   home-assistant:
- 
 networks:
    default:
    web:
